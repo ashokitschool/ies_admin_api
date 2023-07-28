@@ -1,14 +1,17 @@
 package in.ashokit.service;
 
 import in.ashokit.bindings.UnlockAccForm;
+import in.ashokit.bindings.UserAccForm;
+
+import java.util.List;
 
 public interface AccountService {
 
-    public boolean createUserAccount(UserAccountForm accForm);
+    public boolean createUserAccount(UserAccForm accForm);
 
-    public List<UserAccountForm> fetchUserAccounts( );
+    public List<UserAccForm> fetchUserAccounts( );
 
-    public UserAccountForm getUserAccById(Integer accId);
+    public UserAccForm getUserAccById(Integer accId);
 
     public String changeAccStatus(Integer accId, String status);
 

@@ -1,4 +1,7 @@
 package in.ashokit.repositories;
 
-public interface PlanRepo {
+import in.ashokit.entities.PlanEntity;
+import org.springframework.data.jpa.repository.JpaRepository;
+
+public interface PlanRepo extends JpaRepository<PlanEntity, Integer> {
 }
