@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.RestController;
 import in.ashokit.bindings.DashboardCard;
 import in.ashokit.bindings.LoginForm;
 import in.ashokit.bindings.UserAccForm;
-import in.ashokit.service.AccountService;
 import in.ashokit.service.UserService;
 
 @RestController

@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 import in.ashokit.bindings.DashboardCard;
 import in.ashokit.bindings.LoginForm;
 import in.ashokit.bindings.UserAccForm;
+import in.ashokit.constants.AppConstants;
 import in.ashokit.entities.EligEntity;
 import in.ashokit.entities.UserEntity;
 import in.ashokit.repositories.EligRepo;
@@ -40,13 +41,13 @@ public class UserServiceImpl implements UserService{
         UserEntity entity = userRepo.findByEmailAndPwd(loginForm.getEmail(), loginForm.getPwd());
 
         if(entity == null){
-            return "Invalid Credentials";
+            return AppConstants.INVALID_CRED;
         }
 
-        if("Y".equals(entity.getActiveSw()) && "UNLOCKED".equals(entity.getAccStatus())){
-            return "success";
+        if(AppConstants.Y_STR.equals(entity.getActiveSw()) && AppConstants.UNLOCKED.equals(entity.getAccStatus())){
+            return AppConstants.SUCCESS;
         }else {
-            return "Account Locked/In-Active";
+            return AppConstants.ACC_LOCKED;
         }
     }
 
@@ -56,8 +57,8 @@ public class UserServiceImpl implements UserService{
         if(null == userEntity){
             return false;
         }else{
-        	String subject = "Recover Pwd";
-    		String body = readEmailBody("FORGOT_PWD_EMAIL_BODY.txt", userEntity);
+        	String subject = AppConstants.RECOVER_SUB;
+    		String body = readEmailBody(AppConstants.PWD_BODY_FILE, userEntity);
           return emailUtils.sendEmail(subject, body, email);
         }
     }
@@ -69,10 +70,10 @@ public class UserServiceImpl implements UserService{
         List<EligEntity> eligList = eligRepo.findAll();
 
         Long approvedCnt =
-                eligList.stream().filter(ed-> ed.getPlanStatus().equals("AP")).count();
+                eligList.stream().filter(ed-> ed.getPlanStatus().equals(AppConstants.AP)).count();
 
         Long deniedCnt =
-                eligList.stream().filter(ed -> ed.getPlanStatus().equals("DN")).count();
+                eligList.stream().filter(ed -> ed.getPlanStatus().equals(AppConstants.DN)).count();
 
         Double total = eligList.stream().mapToDouble(ed -> ed.getBenefitAmt()).sum();
 
@@ -98,9 +99,9 @@ public class UserServiceImpl implements UserService{
 		StringBuilder sb = new StringBuilder();
 		try (Stream<String> lines = Files.lines(Paths.get(filename))) {
 			lines.forEach(line -> {
-				line = line.replace("${FNAME}", user.getFullName());
-				line = line.replace("${PWD}", user.getPwd());
-				line = line.replace("${EMAIL}", user.getEmail());
+				line = line.replace(AppConstants.FNAME, user.getFullName());
+				line = line.replace(AppConstants.PWD, user.getPwd());
+				line = line.replace(AppConstants.EMAIL, user.getEmail());
 				sb.append(line);
 			});
 		} catch (Exception e) {
