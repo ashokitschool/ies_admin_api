@@ -1,7 +1,5 @@
 package in.ashokit.bindings;
 
-import lombok.Data;
-
 public class DashboardCard {
 
     private Long plansCnt;

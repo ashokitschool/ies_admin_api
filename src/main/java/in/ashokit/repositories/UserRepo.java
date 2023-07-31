@@ -1,8 +1,9 @@
 package in.ashokit.repositories;
 
-import in.ashokit.entities.UserEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+
+import in.ashokit.entities.UserEntity;
 
 public interface UserRepo extends JpaRepository<UserEntity, Integer> {
 

@@ -10,5 +10,4 @@ public class AdminApiApplication {
 
 		SpringApplication.run(AdminApiApplication.class, args);
 	}
-
 }

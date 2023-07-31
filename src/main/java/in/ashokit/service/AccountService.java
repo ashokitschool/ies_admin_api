@@ -1,9 +1,9 @@
 package in.ashokit.service;
 
+import java.util.List;
+
 import in.ashokit.bindings.UnlockAccForm;
 import in.ashokit.bindings.UserAccForm;
-
-import java.util.List;
 
 public interface AccountService {
 

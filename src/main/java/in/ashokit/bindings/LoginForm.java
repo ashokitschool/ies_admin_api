@@ -1,8 +1,5 @@
 package in.ashokit.bindings;
 
-
-import lombok.Data;
-
 public class LoginForm {
 
     private String email;

@@ -1,7 +1,5 @@
 package in.ashokit.bindings;
 
-import lombok.*;
-
 import java.time.LocalDate;
 
 public class UserAccForm {

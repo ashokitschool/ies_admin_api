@@ -1,7 +1,5 @@
 package in.ashokit.bindings;
 
-import lombok.Data;
-
 import java.time.LocalDate;
 
 public class PlanForm {

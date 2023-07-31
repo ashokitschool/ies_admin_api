@@ -1,5 +1,13 @@
 package in.ashokit.service;
 
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.util.List;
+import java.util.stream.Stream;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
 import in.ashokit.bindings.DashboardCard;
 import in.ashokit.bindings.LoginForm;
 import in.ashokit.entities.EligEntity;
@@ -8,11 +16,6 @@ import in.ashokit.repositories.EligRepo;
 import in.ashokit.repositories.PlanRepo;
 import in.ashokit.repositories.UserRepo;
 import in.ashokit.utils.EmailUtils;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
-import java.util.List;
-import java.util.stream.DoubleStream;
 
 @Service
 public class UserServiceImpl implements UserService{
@@ -51,8 +54,8 @@ public class UserServiceImpl implements UserService{
         if(null == userEntity){
             return false;
         }else{
-           String subject = "";
-           String body = "";
+        	String subject = "Recover Pwd";
+    		String body = readEmailBody("FORGOT_PWD_EMAIL_BODY.txt", userEntity);
           return emailUtils.sendEmail(subject, body, email);
         }
     }
@@ -80,4 +83,19 @@ public class UserServiceImpl implements UserService{
 
         return card;
     }
+    
+    private String readEmailBody(String filename, UserEntity user) {
+		StringBuilder sb = new StringBuilder();
+		try (Stream<String> lines = Files.lines(Paths.get(filename))) {
+			lines.forEach(line -> {
+				line = line.replace("${FNAME}", user.getFullName());
+				line = line.replace("${PWD}", user.getPwd());
+				line = line.replace("${EMAIL}", user.getEmail());
+				sb.append(line);
+			});
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return sb.toString();
+	}
 }
