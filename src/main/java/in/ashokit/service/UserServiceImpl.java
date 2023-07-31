@@ -5,11 +5,13 @@ import java.nio.file.Paths;
 import java.util.List;
 import java.util.stream.Stream;
 
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import in.ashokit.bindings.DashboardCard;
 import in.ashokit.bindings.LoginForm;
+import in.ashokit.bindings.UserAccForm;
 import in.ashokit.entities.EligEntity;
 import in.ashokit.entities.UserEntity;
 import in.ashokit.repositories.EligRepo;
@@ -82,6 +84,14 @@ public class UserServiceImpl implements UserService{
         card.setBeniftAmtGiven(total);
 
         return card;
+    }
+    
+    @Override
+    public UserAccForm getUserByEmail(String email) {
+    	UserEntity userEntity = userRepo.findByEmail(email);
+    	UserAccForm user = new UserAccForm();
+    	BeanUtils.copyProperties(userEntity, user);
+    	return user;
     }
     
     private String readEmailBody(String filename, UserEntity user) {

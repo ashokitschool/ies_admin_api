@@ -1,4 +1,4 @@
-Hi ${FNAME} ${LNAME}, <br/>
+Hi ${FNAME}, <br/>
 <br/>
 
 Welcome to Ashok IT family, your registration is almost completed. <br/>
